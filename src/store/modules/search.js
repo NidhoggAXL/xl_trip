@@ -5,7 +5,7 @@ const useSearchStor = defineStore({
 
   }),
   actions: {
-
+    
   },
   getters: {
 
