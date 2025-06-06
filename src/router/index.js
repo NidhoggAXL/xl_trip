@@ -11,19 +11,19 @@ const router = createRouter({
     },
     {
       path: '/Home',
-      component: () => import('../views/Home/Home.vue'),
+      component: () => import('../views/home/home.vue'),
     },
     {
       path: '/Favor',
-      component: () => import('../views/Favor/Favor.vue'),
+      component: () => import('../views/favor/favor.vue'),
     },
     {
       path: '/Message',
-      component: () => import('../views/Message/Message.vue'),
+      component: () => import('../views/message/message.vue'),
     },
     {
       path: '/Order',
-      component: () => import('../views/Order/Order.vue'),
+      component: () => import('../views/order/order.vue'),
     }
   ]
 })
