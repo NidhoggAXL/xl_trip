@@ -1,11 +1,17 @@
 <script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+const cityClick = () => {
+  router.push('/city')
+};
 
 </script>
 
 <template>
   <div class="search-box">
     <div class="location">
-      <div class="city">广州</div>
+      <div class="city" @click="cityClick">广州</div>
       <div class="position">
         <div class="mine">我的位置</div>
         <img src="@/assets/imgs/home/icon_location.png" alt="">
