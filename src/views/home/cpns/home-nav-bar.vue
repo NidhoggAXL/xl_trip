@@ -11,13 +11,15 @@
 </template>
 
 <style lang="less" scoped>
-  .title {
+  .nav-bar {
     display: flex;
     justify-content: center;
     align-items: center;
-    align-items: center;
-    font-size: 12px;
-    color: var(--primary-color);
-    border-bottom: 1px solid #eaeaea;
+    height: 46px;
+    .title {
+      font-size: 12px;
+      color: var(--primary-color);
+    }
   }
+
 </style>
