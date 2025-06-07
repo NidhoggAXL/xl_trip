@@ -24,10 +24,11 @@ const currentIndex = ref(0);
 
 <style lang="less" scoped>
   .tab-bar {
-
     .text {
       font-size: 12px;
     }
-
+    img {
+      height: 24px;
+    }
   }
 </style>
