@@ -24,6 +24,14 @@ const router = createRouter({
     {
       path: '/Order',
       component: () => import('../views/order/order.vue'),
+    },
+    {
+      path: '/city',
+      component: () => import('../views/city/city.vue'),
+      // 路由元信息
+      meta: {
+        hideTabbar: true
+      }
     }
   ]
 })
