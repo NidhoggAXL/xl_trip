@@ -18,6 +18,10 @@ const cancelClick = () => {
       shape="round"
       @cancel="cancelClick"
     />
+    <van-tabs active="{{ active }}" color="#ff9645">
+      <van-tab title="国内·港澳台"></van-tab>
+      <van-tab title="海外"></van-tab>
+    </van-tabs>
   </div>
 </template>
 
