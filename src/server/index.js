@@ -30,4 +30,11 @@ class AXLRequest {
     })
   }
 
+  get(config) {
+    return this.request({ ...config, method: 'get' });
+  }
+
+  post(config) { 
+    return this.request({ ...config, method: 'post' });
+  }
 }
