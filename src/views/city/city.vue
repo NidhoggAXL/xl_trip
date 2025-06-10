@@ -12,8 +12,9 @@ const cancelClick = () => {
 }
 
 // 网络请求:请求城市数据
+const cityData = ref({})
 getCityAll().then(res => {
-  console.log(res)
+  cityData.value = res.data
 })
 </script>
 
@@ -28,10 +29,11 @@ getCityAll().then(res => {
       @cancel="cancelClick"
     />
 
-    <!-- tabs的页面搭建 -->
+    <!-- tabs的搭建 -->
     <van-tabs active="{{ active }}" color="#ff9645">
-      <van-tab title="国内·港澳台"></van-tab>
-      <van-tab title="海外"></van-tab>
+      <template v-for="(value, key, index) in cityData" :key="key">
+        <van-tab :title="value.title"></van-tab>
+      </template>
     </van-tabs>
   </div>
 </template>
