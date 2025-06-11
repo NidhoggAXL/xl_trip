@@ -3,6 +3,9 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 // import { getCityAll } from '@/server'
 
+// 获取city-group组件
+import cityGroup from './cnps/city-group.vue'
+
 // 搜索框的绑定值,使用ref来创建响应式数据
 // 取消按钮的路由跳转
 const searchValue = ref('')
@@ -59,18 +62,7 @@ const currentGroup = computed(() => cityData.value[tabActive.value])
 
     <!-- 滚动的区域 -->
     <div class="content">
-      <template v-for="(item, index) in currentGroup?.cities" :key="index">
-        <div class="group-item">
-          <div class="title">
-            <h2>{{ item.group }}</h2>
-          </div>
-          <div class="list">
-            <template v-for="(iten, indey) in item.cities" :key="indey">
-              <div class="city">{{ iten.cityName }}</div>
-            </template>
-          </div>
-        </div>
-      </template>
+      <city-group :group-data="currentGroup"></city-group>
     </div>
   </div>
 </template>
