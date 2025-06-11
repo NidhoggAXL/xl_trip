@@ -63,9 +63,8 @@ const currentGroup = computed(() => cityData.value[tabActive.value])
     <!-- 滚动的区域 -->
     <div class="content">
       <template v-for="(value, key, index) in cityData" :key="index">
-        <city-group v-show="tabActive === key" :group-data="value" />
+        <city-group v-if="tabActive === key" :group-data="value" />
       </template>
-      
     </div>
   </div>
 </template>
