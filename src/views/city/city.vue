@@ -6,6 +6,7 @@ import { useRouter } from 'vue-router'
 // 获取city-group组件
 import cityGroup from './cnps/city-group.vue'
 
+
 // 搜索框的绑定值,使用ref来创建响应式数据
 // 取消按钮的路由跳转
 const searchValue = ref('')
@@ -76,7 +77,6 @@ const currentGroup = computed(() => cityData.value[tabActive.value])
     z-index: 9;
   }
   .content {
-    
     // 局部页面的滚动
     height: calc(100vh - 98px);
     overflow-y: auto;
