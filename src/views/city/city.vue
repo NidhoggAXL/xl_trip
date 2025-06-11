@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 // import { getCityAll } from '@/server'
 
@@ -10,6 +10,8 @@ const router = useRouter()
 const cancelClick = () => {
   router.back()
 }
+
+
 
 // 网络请求:请求城市数据
 // const cityData = ref({})
@@ -25,29 +27,51 @@ cityStore.fetchCityData()
 // 使用storeToRefs来获取响应式数据
 const { cityData } = storeToRefs(cityStore)
 
+const tabActive = ref(0)
+// tabActive 默认绑定时缩影
+// 通过给van-tab组件添加name属性改为绑定name对应的值
+//获取元素标签后的数据
+const currentGroup = computed(() => cityData.value[tabActive.value])
 
 </script>
 
 <template>
   <div class="city">
-    <!-- 搜索框的搭建 -->
-    <van-search 
-      v-model="searchValue" 
-      placeholder="城市/区域/位置" 
-      show-action
-      shape="round"
-      @cancel="cancelClick"
-    />
+    <!-- city中不滚动的区域 -->
+    <div class="top">
+      <!-- 搜索框的搭建 -->
+      <van-search 
+        v-model="searchValue" 
+        placeholder="城市/区域/位置" 
+        show-action
+        shape="round"
+        @cancel="cancelClick"
+      />
 
-    <!-- tabs的搭建 -->
-    <van-tabs active="{{ active }}" color="#ff9645">
-      <template v-for="(value, key, index) in cityData" :key="key">
-        <van-tab :title="value.title"></van-tab>
+      <!-- tabs的搭建 -->
+      <!--  @click-tab="onClickTab(tabActive) -->
+      <van-tabs v-model:active="tabActive" color="#ff9645">
+        <template v-for="(value, key, index) in cityData" :key="key">
+          <van-tab :title="value.title" :name="key"></van-tab>
+        </template>
+      </van-tabs>
+    </div>
+
+    <!-- 滚动的区域 -->
+    <div class="content">
+      <template v-for="item in currentGroup?.cities">
+        <div>{{ item }}</div>
       </template>
-    </van-tabs>
+    </div>
   </div>
 </template>
 
 <style lang="less" scoped>
-
+.city {
+  .content {
+    // 局部页面的滚动
+    height: calc(100vh - 98px);
+    overflow-y: auto;
+  }
+}
 </style>
