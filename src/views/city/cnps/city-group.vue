@@ -10,16 +10,14 @@
 
 <template>
   <div class="city-group">
-    <template v-for="(item, index) in groupData.cities" :key="index">
-        <div class="group-item">
-          <h2 class="title">{{ item.group }}</h2>
-          <div class="list">
-            <template v-for="(iten, indey) in item.cities" :key="indey">
-              <div class="city">{{ iten.cityName }}</div>
-            </template>
-          </div>
-        </div>
+    <van-index-bar highlight-color="#ff9645">
+      <template v-for="(item, index) in groupData.cities" :key="index">
+        <van-index-anchor :index="item.group" />
+        <template v-for="(iten, indey) in item.cities" :key="indey">
+          <van-cell :title="iten.cityName" />
+        </template>
       </template>
+    </van-index-bar>
   </div>
 </template>
 

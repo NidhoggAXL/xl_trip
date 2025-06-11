@@ -62,14 +62,22 @@ const currentGroup = computed(() => cityData.value[tabActive.value])
 
     <!-- 滚动的区域 -->
     <div class="content">
-      <city-group :group-data="currentGroup"></city-group>
+      <template v-for="(value, key, index) in cityData" :key="index">
+        <city-group v-show="tabActive === key" :group-data="value" />
+      </template>
+      
     </div>
   </div>
 </template>
 
 <style lang="less" scoped>
 .city {
+  .top {
+    position: relative;
+    z-index: 9;
+  }
   .content {
+    
     // 局部页面的滚动
     height: calc(100vh - 98px);
     overflow-y: auto;
