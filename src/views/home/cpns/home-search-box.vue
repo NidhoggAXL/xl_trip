@@ -16,6 +16,7 @@ const { currentCity } = storeToRefs(cityStore)
 
 <template>
   <div class="search-box">
+    <!-- 位置信息 -->
     <div class="location">
       <div class="city" @click="cityClick">{{ currentCity.cityName }}</div>
       <div class="position">
@@ -23,33 +24,74 @@ const { currentCity } = storeToRefs(cityStore)
         <img src="@/assets/imgs/home/icon_location.png" alt="">
       </div>
     </div>
+
+    <!-- 入住时间选择 -->
+    <div class="date-range">
+      <div class="star">
+        <div class="tip">入住</div>
+        <div class="time">8月25日</div>
+      </div>
+      <div class="process">共一晚</div>
+      <div class="end">
+        <div class="tip">离店</div>
+        <div class="time">8月25日</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style lang="less" scoped>
-.search-box {
-  .location {
+// 位置信息样式
+.location {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 20px;
+
+  .city {
+    flex: 1;
+  }
+  .position {
     display: flex;
     align-items: center;
-    height: 44px;
-    padding: 0 15px;
 
-    .city {
-      flex: 1;
+    .mine {
+      font-size: 12px;
+      color: #555;
     }
-    .position {
-      display: flex;
-      align-items: center;
+    img {
+      width: 20px;
+      margin: 0 5px;
+    }
+  }
+}
 
-      .mine {
-        font-size: 12px;
-        color: #555;
-      }
-      img {
-        width: 20px;
-        margin: 0 5px;
-      }
-    }
+// 入住时间选择
+.date-range {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  height: 44px;
+
+  .process {
+    color: #666;
+    font-size: 12px;
+  }
+
+  .end {
+    padding-right: 50px;
+  }
+
+  .tip {
+    color: #999;
+    font-size: 12px;
+  }
+
+  .time {
+    color: #333;
+    font-size: 15px;
+    margin-top: 3px;
   }
 }
 </style>
