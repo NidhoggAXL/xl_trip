@@ -1,5 +1,6 @@
 <script setup>
 import useCityStore from '@/store/modules/city';
+import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 
 // 路由跳转city页面
@@ -10,13 +11,13 @@ const cityClick = () => {
 
 // 当前城市数据的获取
 const cityStore = useCityStore()
-const currentCity = cityStore.currentCity.cityName
+const { currentCity } = storeToRefs(cityStore)
 </script>
 
 <template>
   <div class="search-box">
     <div class="location">
-      <div class="city" @click="cityClick">{{ currentCity }}</div>
+      <div class="city" @click="cityClick">{{ currentCity.cityName }}</div>
       <div class="position">
         <div class="mine">我的位置</div>
         <img src="@/assets/imgs/home/icon_location.png" alt="">
