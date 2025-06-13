@@ -1,8 +1,11 @@
 <script setup>
+import { useHomeStore } from '@/store/modules/home';
 import homeNavBar from './cpns/home-nav-bar.vue';
 import HomeSearchBox from './cpns/home-search-box.vue';
 
-
+// // 发送热门城市的网络请求
+// const homeStore = useHomeStore()
+// homeStore.fetchHotSuggests()
 </script>
 
 <template>

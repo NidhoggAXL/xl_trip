@@ -1,5 +1,7 @@
 <script setup>
+import { getHotSuggests } from '@/server';
 import useCityStore from '@/store/modules/city';
+import { useHomeStore } from '@/store/modules/home';
 import { formatMouthDate } from '@/utils/formate-date';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
@@ -31,9 +33,9 @@ const endDate = ref(formatMouthDate(tommorrow))
 const showCalendar = ref(false)
 // 2. 确定返回选择日期的数据,
 const onConfirm = (value) => {
-  console.log(value)
-  console.log(value[0])//开始时间
-  console.log(value[1])//结束时间
+  // console.log(value)
+  // console.log(value[0])//开始时间
+  // console.log(value[1])//结束时间
   startDate.value = formatMouthDate(value[0])
   endDate.value = formatMouthDate(value[1])
   showCalendar.value = false
@@ -42,6 +44,14 @@ const onConfirm = (value) => {
 const calendarClick = () => {
   showCalendar.value = true
 }
+
+// 热门城市数据
+// 发送热门城市的网络请求
+const homeStore = useHomeStore()
+homeStore.fetchHotSuggests()
+// const homeStore = useHomeStore()
+const { hotSuggests } = storeToRefs(homeStore)
+// console.log(hotSuggests)
 
 </script>
 
@@ -89,6 +99,13 @@ const calendarClick = () => {
 
     <!-- 关键字 -->
     <div class="keyword">关键字/位置/民宿名</div>
+
+    <!-- 热门城市推荐 -->
+    <div class="hot-suggests">
+      <template v-for="(item, index) in hotSuggests" :key="index">
+        <div class="city">{{ item.tagText.text }}</div>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -171,5 +188,20 @@ const calendarClick = () => {
   font-size: 14px;
   height: 44px;
   line-height: 44px;
+}
+
+// 热门城市推荐
+.hot-suggests {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  .city {
+    margin: 3px;
+    padding: 4px 8px;
+    border-radius: 14px;
+    color: #3f4954;
+    background-color: #f1f3f5;
+    font-size: 12px;
+  }
 }
 </style>
