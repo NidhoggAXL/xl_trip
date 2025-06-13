@@ -70,6 +70,7 @@ const calendarClick = () => {
       </div>
     </div>
 
+    <!-- 日历的选择 -->
     <div class="calendar">
       <van-calendar 
       v-model:show="showCalendar" 
@@ -79,16 +80,30 @@ const calendarClick = () => {
       @confirm="onConfirm"
       />
     </div>
+
+    <!-- 价格以及人数限制 -->
+    <div class="price-counter">
+      <span class="price">价格不限</span>
+      <span class="person">人数不限</span>
+    </div>
+
+    <!-- 关键字 -->
+    <div class="keyword">关键字/位置/民宿名</div>
   </div>
 </template>
 
 <style lang="less" scoped>
+// 整体样式
+.search-box {
+  padding: 0 20px;
+}
+
 // 位置信息样式
 .location {
   display: flex;
   align-items: center;
   height: 44px;
-  padding: 0 20px;
+
 
   .city {
     flex: 1;
@@ -113,7 +128,6 @@ const calendarClick = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 15px;
   height: 44px;
 
   .process {
@@ -135,5 +149,27 @@ const calendarClick = () => {
     font-size: 15px;
     margin-top: 3px;
   }
+}
+
+// 价格以及人数限制
+.price-counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  color: #999;
+  font-size: 14px;
+
+  .person {
+    padding-right: 50px;
+  }
+}
+
+// 关键字
+.keyword {
+  color: #999;
+  font-size: 14px;
+  height: 44px;
+  line-height: 44px;
 }
 </style>
