@@ -2,9 +2,10 @@
 import { getHotSuggests } from '@/server';
 import useCityStore from '@/store/modules/city';
 import { useHomeStore } from '@/store/modules/home';
-import { formatMouthDate } from '@/utils/formate-date';
+import useMainStore from '@/store/modules/main';
+import { formatMouthDate, getDiffDays } from '@/utils/formate-date';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 // 路由跳转city页面
@@ -18,14 +19,13 @@ const cityStore = useCityStore()
 const { currentCity } = storeToRefs(cityStore)
 
 // 获取时间
-// 1. 获取当天时间
-const today = new Date()
-// 2. 格式化当天时间
-const startDate = ref(formatMouthDate(today))
-// 3. 对当天的时间+1天,获得明天的时间
-const tommorrow = today.setDate(today.getDate() + 1)
-// 4. 格式话明天
-const endDate = ref(formatMouthDate(tommorrow))
+// 日期范围的处理
+const mainStore = useMainStore()
+const { startDate, endDate } = storeToRefs(mainStore)
+
+const startDateStr = computed(() => formatMouthDate(startDate.value))
+const endDateStr = computed(() => formatMouthDate(endDate.value))
+const stayCount = ref(getDiffDays(startDate.value, endDate.value))
 
 
 // 日历选择
@@ -36,8 +36,11 @@ const onConfirm = (value) => {
   // console.log(value)
   // console.log(value[0])//开始时间
   // console.log(value[1])//结束时间
-  startDate.value = formatMouthDate(value[0])
-  endDate.value = formatMouthDate(value[1])
+  const selectStartDate = value[0]
+  const selectEndDate = value[1]
+  mainStore.startDate = selectStartDate
+  mainStore.endDate = selectEndDate
+  stayCount.value = getDiffDays(selectStartDate, selectEndDate)
   showCalendar.value = false
 }
 // 3. 选择时长的时候,显示日历
@@ -53,6 +56,16 @@ homeStore.fetchHotSuggests()
 const { hotSuggests } = storeToRefs(homeStore)
 // console.log(hotSuggests)
 
+// 搜索按钮进行路由跳转
+const searchClickBtn = () => {
+  router.push({
+    path: '/search',
+    query: {
+      startDate: startDate.value,
+      endDate: endDate.value,
+    }
+  })
+}
 </script>
 
 
@@ -71,12 +84,12 @@ const { hotSuggests } = storeToRefs(homeStore)
     <div class="date-range" @click="calendarClick">
       <div class="star">
         <div class="tip">入住</div>
-        <div class="time">{{ startDate }}</div>
+        <div class="time">{{ startDateStr }}</div>
       </div>
-      <div class="process">共一晚</div>
+      <div class="process">共{{ stayCount }}晚</div>
       <div class="end">
         <div class="tip">离店</div>
-        <div class="time">{{ endDate }}</div>
+        <div class="time">{{ endDateStr }}</div>
       </div>
     </div>
 
@@ -108,7 +121,7 @@ const { hotSuggests } = storeToRefs(homeStore)
     </div>
 
     <!-- 搜索按钮 -->
-    <div class="search-btn">
+    <div class="search-btn" @click="searchClickBtn">
       <div class="btn">开始搜索</div>
     </div>
   </div>
