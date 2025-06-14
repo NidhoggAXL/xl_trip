@@ -106,6 +106,11 @@ const { hotSuggests } = storeToRefs(homeStore)
         <div class="city">{{ item.tagText.text }}</div>
       </template>
     </div>
+
+    <!-- 搜索按钮 -->
+    <div class="search-btn">
+      <div class="btn">开始搜索</div>
+    </div>
   </div>
 </template>
 
@@ -204,4 +209,20 @@ const { hotSuggests } = storeToRefs(homeStore)
     font-size: 12px;
   }
 }
+
+// 搜索按钮
+.search-btn{
+  .btn {
+    height: 38px;
+    max-height: 50px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 38px;
+    text-align: center;
+    border-radius: 20px;
+    color: #fff;
+    background-image: var(--theme-linear-gradient);
+  }
+}
+
 </style>

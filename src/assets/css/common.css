@@ -7,6 +7,9 @@
 
   /* 日历高度 */
   --van-calendar-popup-height: 100% !important;
+
+  /* 渐变背景 */
+  --theme-linear-gradient: linear-gradient(90deg, #fa8c1d, #fcaf3f);
 }
 
 body {
