@@ -1,5 +1,4 @@
 <script setup>
-import { getHotSuggests } from '@/server';
 import useCityStore from '@/store/modules/city';
 import { useHomeStore } from '@/store/modules/home';
 import useMainStore from '@/store/modules/main';

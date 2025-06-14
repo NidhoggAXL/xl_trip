@@ -16,6 +16,7 @@ export const useHomeStore = defineStore("home" ,{
     async fetchCategories() {
       const res = await getCategories()
       this.categories = res.data
+      // console.log(this.categories)
     }
   }
 })
