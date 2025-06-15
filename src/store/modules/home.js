@@ -1,4 +1,4 @@
-import { getCategories, getHotSuggests } from "@/server";
+import { getCategories, getHotSuggests, getHouserContentData } from "@/server";
 import { defineStore } from "pinia";
 
 export const useHomeStore = defineStore("home" ,{
@@ -6,7 +6,11 @@ export const useHomeStore = defineStore("home" ,{
     // 热门城市推荐
     hotSuggests: [],
     //推荐类别
-    categories: []
+    categories: [],
+    //房子列表
+    houselist: [],
+    //记录请求数据的页码
+    currentPage: 0,
   }),
   actions: {
     async fetchHotSuggests() {
@@ -17,6 +21,10 @@ export const useHomeStore = defineStore("home" ,{
       const res = await getCategories()
       this.categories = res.data
       // console.log(this.categories)
+    }, 
+    async fetchHouseList() {
+      const res = await getHouserContentData(++this.currentPage)
+      this.houselist.push(...res.data)
     }
   }
 })

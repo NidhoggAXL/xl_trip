@@ -3,10 +3,19 @@ import { useHomeStore } from '@/store/modules/home';
 import HomeNavBar from './cpns/home-nav-bar.vue';
 import HomeSearchBox from './cpns/home-search-box.vue';
 import HomeCategories from './cpns/home-categories.vue'
+import HomeContent from './cpns/home-content.vue';
 
-// // 发送分类的网络请求
+
+// 网络请求
 const homeStore = useHomeStore()
+// 发送分类的网络请求
 homeStore.fetchCategories()
+// house列表
+homeStore.fetchHouseList()
+
+const homeListClick = () => {
+  homeStore.fetchHouseList()
+}
 </script>
 
 <template>
@@ -24,6 +33,10 @@ homeStore.fetchCategories()
 
     <!-- 分类 -->
     <home-categories />
+
+    <!-- houser列表数据 -->
+    <home-content />
+    <button @click="homeListClick">请求更多的数据</button>
   </div>
 
 

@@ -13,3 +13,12 @@ export function getCategories() {
     timeout: 10000,
   })
 }
+
+export function getHouserContentData(currentPage) {
+  return AXLRequest.get({
+    url: '/home/houselist',
+    params: {
+      page: currentPage
+    }
+  })
+}
