@@ -43,6 +43,9 @@ const homeListClick = () => {
 </template>
 
 <style lang="less" scoped>
+  .home {
+    margin-bottom: 50px;
+  }
   .home-img {
     img {
       width: 100%;
