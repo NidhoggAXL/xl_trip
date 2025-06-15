@@ -1,27 +1,18 @@
 import { ref, onMounted, onUnmounted } from "vue"
+import { throttle } from "underscore"
 
 export default function useScroll() {
   const isReachBottom = ref(false)
-
-  // 防抖函数
-  const debounce = (fn, delay) => {
-    let timer = null;
-    return function(...args) {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(() => {
-        fn.apply(this, args);
-      }, delay);
-    };
-  };
 
   const clientHeight = ref(0)
   const scrollTop = ref(0)
   const scrollHeight = ref(0)
 
-  const scrollListenerHandler = debounce(() => {
+  const scrollListenerHandler = throttle(() => {
     clientHeight.value = document.documentElement.clientHeight
     scrollTop.value = document.documentElement.scrollTop
     scrollHeight.value = document.documentElement.scrollHeight
+    console.log("hhhh")
     if (clientHeight.value + scrollTop.value >= scrollHeight.value - 50) {
       console.log("滚动到底部啦")
       isReachBottom.value = true
