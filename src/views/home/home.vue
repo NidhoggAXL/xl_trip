@@ -4,7 +4,8 @@ import HomeNavBar from './cpns/home-nav-bar.vue';
 import HomeSearchBox from './cpns/home-search-box.vue';
 import HomeCategories from './cpns/home-categories.vue'
 import HomeContent from './cpns/home-content.vue';
-
+import useScroll from '@/hook/useScroll';
+import { watch } from 'vue';
 
 // 网络请求
 const homeStore = useHomeStore()
@@ -12,14 +13,25 @@ const homeStore = useHomeStore()
 homeStore.fetchCategories()
 // house列表
 homeStore.fetchHouseList()
+// 按钮测试house列表的刷新
+// const homeListClick = () => {
+//   homeStore.fetchHouseList()
+// }
+// 监听滚动来进行houselist的更更新
+const { isReachBottom } = useScroll() 
+watch(isReachBottom, (newValue) => {
+  if (newValue) {
+    homeStore.fetchHouseList().then(() => { 
+      isReachBottom.value = false
+    })
+  }
+})
 
-const homeListClick = () => {
-  homeStore.fetchHouseList()
-}
+
 </script>
 
 <template>
-  <div class="home">
+  <div class="home" >
     <!-- titile -->
     <home-nav-bar />
 
@@ -36,7 +48,7 @@ const homeListClick = () => {
 
     <!-- houser列表数据 -->
     <home-content />
-    <button @click="homeListClick">请求更多的数据</button>
+    <!-- <button @click="homeListClick">请求更多的数据</button> -->
   </div>
 
 
