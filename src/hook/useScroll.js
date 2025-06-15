@@ -14,16 +14,19 @@ export default function useScroll() {
     };
   };
 
+  const clientHeight = ref(0)
+  const scrollTop = ref(0)
+  const scrollHeight = ref(0)
+
   const scrollListenerHandler = debounce(() => {
-    const clientHeight = document.documentElement.clientHeight
-    const scrollTop = document.documentElement.scrollTop
-    const scrollHeight = document.documentElement.scrollHeight
-    console.log(clientHeight, scrollTop, scrollHeight)
-    if (clientHeight + scrollTop >= scrollHeight - 50) {
+    clientHeight.value = document.documentElement.clientHeight
+    scrollTop.value = document.documentElement.scrollTop
+    scrollHeight.value = document.documentElement.scrollHeight
+    if (clientHeight.value + scrollTop.value >= scrollHeight.value - 50) {
       console.log("滚动到底部啦")
       isReachBottom.value = true
     }
-  }, 300)
+  }, 200)
 
   onMounted(() => {
     window.addEventListener('scroll', scrollListenerHandler);
@@ -33,5 +36,5 @@ export default function useScroll() {
     window.removeEventListener('scroll', scrollListenerHandler);
   });
 
-  return { isReachBottom }
+  return { isReachBottom, clientHeight, scrollTop, scrollHeight }
 }

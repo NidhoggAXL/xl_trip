@@ -5,7 +5,7 @@ import HomeSearchBox from './cpns/home-search-box.vue';
 import HomeCategories from './cpns/home-categories.vue'
 import HomeContent from './cpns/home-content.vue';
 import useScroll from '@/hook/useScroll';
-import { watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 // 网络请求
 const homeStore = useHomeStore()
@@ -18,7 +18,7 @@ homeStore.fetchHouseList()
 //   homeStore.fetchHouseList()
 // }
 // 监听滚动来进行houselist的更更新
-const { isReachBottom } = useScroll() 
+const { isReachBottom, scrollTop } = useScroll() 
 watch(isReachBottom, (newValue) => {
   if (newValue) {
     homeStore.fetchHouseList().then(() => { 
@@ -27,6 +27,10 @@ watch(isReachBottom, (newValue) => {
   }
 })
 
+// 所有框的显示和隐藏
+const isShowSearchBar = computed(() => {
+  return scrollTop.value >= 100
+})
 
 </script>
 
@@ -43,6 +47,7 @@ watch(isReachBottom, (newValue) => {
     <!-- 城市搜索 -->
     <home-search-box />
 
+    <h2 v-if="isShowSearchBar">我是搜索框，弹出显示</h2>
     <!-- 分类 -->
     <home-categories />
 
