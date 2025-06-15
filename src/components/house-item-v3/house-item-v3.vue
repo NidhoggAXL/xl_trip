@@ -23,7 +23,7 @@ const props = defineProps({
         <div class="price">
           <span class="finalPrice">{{ "￥" + itemData.finalPrice }}</span>
           <span class="productPrice">{{ "￥" + itemData.productPrice }}</span>
-          <span class="priceTipBadge">{{ itemData.priceTipBadge.text }}</span>
+          <span class="priceTipBadge">{{ itemData?.priceTipBadge?.text }}</span>
         </div>
       </div>
     </div>
