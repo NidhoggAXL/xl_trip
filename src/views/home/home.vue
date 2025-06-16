@@ -1,11 +1,13 @@
 <script setup>
+import { computed, ref, watch } from 'vue';
 import { useHomeStore } from '@/store/modules/home';
+import useScroll from '@/hook/useScroll';
 import HomeNavBar from './cpns/home-nav-bar.vue';
 import HomeSearchBox from './cpns/home-search-box.vue';
 import HomeCategories from './cpns/home-categories.vue'
 import HomeContent from './cpns/home-content.vue';
-import useScroll from '@/hook/useScroll';
-import { computed, ref, watch } from 'vue';
+import homeSearchBar from './cpns/home-search-bar.vue';
+
 
 // 网络请求
 
@@ -30,7 +32,7 @@ watch(isReachBottom, (newValue) => {
 
 // 所有框的显示和隐藏
 const isShowSearchBar = computed(() => {
-  return scrollTop.value >= 100
+  return scrollTop.value >= 450
 })
 
 </script>
@@ -48,7 +50,12 @@ const isShowSearchBar = computed(() => {
     <!-- 城市搜索 -->
     <home-search-box />
 
-    <h2 v-if="isShowSearchBar">我是搜索框，弹出显示</h2>
+    <!-- 搜索框 -->
+    <div class="search-bar" v-if="isShowSearchBar">
+      <home-search-bar />
+    </div>
+
+
     <!-- 分类 -->
     <home-categories />
 
@@ -70,4 +77,15 @@ const isShowSearchBar = computed(() => {
     }
   }
 
+  // 搜索框设置
+  .search-bar {
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 45px;
+    padding: 16px 16px 10px;
+    background-color: #fff;
+  }
 </style>
