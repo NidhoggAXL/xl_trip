@@ -8,6 +8,7 @@ import useScroll from '@/hook/useScroll';
 import { computed, ref, watch } from 'vue';
 
 // 网络请求
+
 const homeStore = useHomeStore()
 // 发送分类的网络请求
 homeStore.fetchCategories()
