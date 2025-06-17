@@ -11,6 +11,7 @@ const useMainStore = defineStore("main", {
     startDate: startDate,
     endDate: endDate,
 
+    // 控制加载页面的隐藏和显示
     isLoading: false
   }),
 })
