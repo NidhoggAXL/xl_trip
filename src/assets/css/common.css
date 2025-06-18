@@ -1,5 +1,5 @@
 :root {
-  /* 主题的主要颜色 */
+  /* 主要颜色 */
   --primary-color: #ff9645;
   
   /* 搜索框的css设置 */
@@ -10,9 +10,23 @@
 
   /* 渐变背景 */
   --theme-linear-gradient: linear-gradient(90deg, #fa8c1d, #fcaf3f);
+
+  /* 主题的主要颜色 */
+  --van-primary-color: var(--primary-color) !important;
+  /* 主题的主要文字颜色 */
+  --van-text-color: var(--primary-color) !important;
 }
 
 body {
   font-size: 14px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.top-page {
+  position: relative;
+  z-index: 9;
+  height: 100vh;
+  background-color: #fff;
+
+  overflow-y: auto;
 }

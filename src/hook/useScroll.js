@@ -1,4 +1,5 @@
 import { ref, onMounted, onUnmounted } from "vue"
+// 使用节流
 import { throttle } from "underscore"
 
 export default function useScroll() {

@@ -40,6 +40,14 @@ const router = createRouter({
         hideTabbar: true
       }
     },
+    {
+      //动态路由
+      path: '/detail/:id',
+      component: () => import('../views/detail/detail.vue'),
+      meta: {
+        hideTabbar: true
+      }
+    },
   ]
 })
 

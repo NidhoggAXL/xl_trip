@@ -3,9 +3,17 @@ import { useHomeStore } from '@/store/modules/home';
 import { storeToRefs } from 'pinia';
 import houseItemV3 from '@/components/house-item-v3/house-item-v3.vue';
 import HouseItemV9 from '@/components/house-item-v9/house-item-v9.vue';
+import { useRouter } from 'vue-router';
 
 const homeStore = useHomeStore()
-const { houselist }  = storeToRefs(homeStore)
+const { houselist } = storeToRefs(homeStore)
+
+// 监听houseItem的点击
+const router = useRouter()
+const houseItemClick = (item) => {
+  //动态路由
+  router.push('/detail/' + item.houseId)
+}
 </script>
 
 <template>
@@ -13,8 +21,16 @@ const { houselist }  = storeToRefs(homeStore)
     <h1 class="title">热门精选</h1>
     <div class="list">
       <template v-for="item in houselist" :key="item.data.houseId">
-        <house-item-v9 :item-data="item.data" v-if="item.discoveryContentType === 9" />
-        <house-item-v3 :item-data="item.data" v-else-if="item.discoveryContentType === 3" />
+        <house-item-v9 
+          :item-data="item.data" 
+          v-if="item.discoveryContentType === 9" 
+          @click="houseItemClick(item.data)"
+        />
+        <house-item-v3 
+          :item-data="item.data" 
+          v-else-if="item.discoveryContentType === 3" 
+          @click="houseItemClick(item.data)"
+        />
       </template>
     </div>
   </div>

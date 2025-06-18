@@ -28,10 +28,10 @@ class AXLRequest {
     })
   }
 
-  request(config) {
+  AXLrequest(config) {
     // mainStore.isLoading = true
     return new Promise((resolve, reject) => {
-      this.instance.request(config)
+        this.instance.request(config)
         .then(response => {
           if (response.status === 200) {
             resolve(response.data);
@@ -57,11 +57,11 @@ class AXLRequest {
   }
 
   get(config) {
-    return this.request({ ...config, method: 'get' });
+    return this.AXLrequest({ ...config, method: 'get' });
   }
 
   post(config) { 
-    return this.request({ ...config, method: 'post' });
+    return this.AXLrequest({ ...config, method: 'post' });
   }
 }
 
