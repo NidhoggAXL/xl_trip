@@ -18,7 +18,6 @@ for(let item of props.swipeData) {
   //valueArray是同一个引用
   valueArray.push(item)
 }
-console.log(swipeGroup)
 
 
 //使用正则表达式格式title
