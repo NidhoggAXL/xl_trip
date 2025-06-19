@@ -5,6 +5,9 @@ import { useRoute, useRouter } from 'vue-router';
 import DetailSwipe from './cpns/detail_01-swipe.vue'
 import DetailInfos from './cpns/detail_02-infos.vue';
 import DetailFacilities from './cpns/detail_03-facilities.vue'
+import DetailLandlord from './cpns/detail_04-landlord.vue'
+import DetailComment from './cpns/detail_05-comment.vue';
+import DetailNotice from './cpns/detail_06-notice.vue';
 
 const router = useRouter()
 const route = useRoute()
@@ -41,6 +44,15 @@ const onClickLeft = () => {
 
       <!-- 房屋设置 -->
       <DetailFacilities :house-facility="mainPart.dynamicModule?.facilityModule?.houseFacility"/>
+
+      <!-- 房东介绍 -->
+      <detail-landlord :landlord="mainPart.dynamicModule.landlordModule" />
+
+      <!-- 热门评论 -->
+      <detail-comment :comment="mainPart.dynamicModule.commentModule"/>
+
+      <!-- 预定须知 -->
+      <detail-notice :order-rules="mainPart.dynamicModule.rulesModule.orderRules" />
     </div>
 
 
