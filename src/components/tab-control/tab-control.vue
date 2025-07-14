@@ -33,6 +33,16 @@ const itemClick = (index) => {
   emit("itemClick", index)
 }
 
+//给其他组件提供一个方法来修改currentIndex
+const setCurrentIndex = (newIndex) => {
+  currentIndex.value = newIndex
+}
+
+// 关键：暴露方法
+defineExpose({
+  setCurrentIndex
+})
+
 </script>
 
 <style lang="less" scoped>
