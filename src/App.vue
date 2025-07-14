@@ -10,7 +10,14 @@ const route = useRoute()
 
 <template>
   <div class="app">
-    <router-view />
+
+    <!-- name属性 -->
+    <router-view v-slot="props">
+      <keep-alive include="home">
+        <component :is="props.Component"></component>
+      </keep-alive>
+    </router-view>
+
     <TabBar v-if="!route.meta.hideTabbar" />
     <loading />
   </div>

@@ -1,5 +1,7 @@
+
+
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, onActivated, ref, watch } from 'vue';
 import { useHomeStore } from '@/store/modules/home';
 import useScroll from '@/hook/useScroll';
 import HomeNavBar from './cpns/home-nav-bar.vue';
@@ -8,8 +10,6 @@ import HomeCategories from './cpns/home-categories.vue'
 import HomeContent from './cpns/home-content.vue';
 import homeSearchBar from './cpns/home-search-bar.vue';
 
-
-// 网络请求
 
 const homeStore = useHomeStore()
 // 发送分类的网络请求
@@ -20,8 +20,10 @@ homeStore.fetchHouseList()
 // const homeListClick = () => {
 //   homeStore.fetchHouseList()
 // }
-// 监听滚动来进行houselist的更更新
-const { isReachBottom, scrollTop } = useScroll() 
+// 监听滚动来进行houselist的更新
+const homeRef = ref()
+console.log(homeRef)
+const { isReachBottom, scrollTop } = useScroll(homeRef) 
 watch(isReachBottom, (newValue) => {
   if (newValue) {
     homeStore.fetchHouseList().then(() => { 
@@ -35,10 +37,23 @@ const isShowSearchBar = computed(() => {
   return scrollTop.value >= 450
 })
 
+// 路由跳转回home时, 保留原来的位置
+onActivated(() => {
+  homeRef.value?.scrollTo({
+    top: scrollTop.value
+  })
+})
+
+</script>
+
+<script>
+export default {
+  name: 'home' // 必须与 include 中的名称匹配
+}
 </script>
 
 <template>
-  <div class="home" >
+  <div class="home" ref="homeRef">
     <!-- titile -->
     <home-nav-bar />
 
@@ -70,6 +85,8 @@ const isShowSearchBar = computed(() => {
 <style lang="less" scoped>
   .home {
     margin-bottom: 50px;
+    height: 100vh;
+    overflow: auto;
   }
   .home-img {
     img {

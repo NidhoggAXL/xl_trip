@@ -1,45 +1,40 @@
-import { onMounted, onUnmounted, onActivated, onDeactivated, ref } from "vue"
-
+import { onMounted, onUnmounted, ref } from 'vue';
+import { throttle } from 'underscore'
 
 export default function useScroll(elRef) {
-  let el = window;
+  let el = window
 
-  const scrollHeight = ref(0)
-  const scrollTop = ref(0)
-  const clientHeight = ref(0)
   const isReachBottom = ref(false)
 
-  const handleScrollListener = () => {
-    if (el === window) {
-      scrollHeight.value = document.documentElement.scrollHeight
-      scrollTop.value = document.documentElement.scrollTop
-      clientHeight.value = document.documentElement.clientHeight
-      isReachBottom.value = scrollHeight.value <= scrollTop.value + clientHeight.value
-    } else {
-      scrollHeight.value = el.scrollHeight
-      scrollTop.value = el.scrollTop
-      clientHeight.value = el.clientHeight
-    }
-  }
+  const clientHeight = ref(0)
+  const scrollTop = ref(0)
+  const scrollHeight = ref(0)
 
-  onMounted(() => {
-    if (elRef) {
-      el = elRef.value
+  // 防抖/节流
+  const scrollListenerHandler = throttle(() => {
+    if (el === window) {
+      clientHeight.value = document.documentElement.clientHeight
+      scrollTop.value = document.documentElement.scrollTop
+      scrollHeight.value = document.documentElement.scrollHeight
+    } else {
+      clientHeight.value = el.clientHeight
+      scrollTop.value = el.scrollTop
+      scrollHeight.value = el.scrollHeight
     }
-    el.addEventListener("scroll", handleScrollListener)
-  })
-  onUnmounted(() => {
-    el.removeEventListener("scroll", handleScrollListener)
+    if (clientHeight.value + scrollTop.value >= scrollHeight.value) {
+      console.log("滚动到底部了")
+      isReachBottom.value = true
+    }
+  }, 100)
+  
+  onMounted(() => {
+    if (elRef) el = elRef.value
+    el.addEventListener("scroll", scrollListenerHandler)
   })
   
-  onActivated(() => {
-    el.addEventListener("scroll", handleScrollListener)
+  onUnmounted(() => {
+    el.removeEventListener("scroll", scrollListenerHandler)
   })
-  onDeactivated(() => {
-    el.removeEventListener("scroll", handleScrollListener)
-  })
-
-  return {
-    scrollHeight, scrollTop, clientHeight, isReachBottom
-  }
+  
+  return { isReachBottom, clientHeight, scrollTop, scrollHeight }
 }
