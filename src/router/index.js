@@ -20,6 +20,10 @@ const router = createRouter({
     {
       path: '/Message',
       component: () => import('../views/message/message.vue'),
+      // 路由元信息
+      meta: {
+        hideTabbar: true
+      }
     },
     {
       path: '/Order',
