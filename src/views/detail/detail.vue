@@ -56,14 +56,24 @@ const getSectionRefs = (value) => {
   sectionEls.value[name] = value.$el
 }
 
+// 滚动和点击tabContrl时，滚动和点击的冲突的bug
+let isClick = false
+let currentDistance = 0
+
+// 点击tab时，滚动到对应的模块
 const tabClick = (index) => {
   //获取对应的模块元素
   const key = Object.keys(sectionEls.value)[index]
   const el = sectionEls.value[key]
+  let distance = el.offsetTop - 45
 
-  const instance = el.offsetTop - 45
+  // 记录当前滚动的距离
+  currentDistance = distance
+  // 如果当前正在滚动，则不执行
+  isClick = true
+
   detailRef.value.scrollTo({
-    top: instance, 
+    top: distance, 
     behavior: "smooth"
   })
 }
@@ -71,6 +81,12 @@ const tabClick = (index) => {
 //页面滚动，滚动时匹配对应的tabcontroll的index
 const tabControlRef = ref()
 watch(scrollTop, (newVal) => {
+  if (currentDistance === newVal) {
+    // 如果当前滚动的距离和之前记录的距离相同，则不执行
+    isClick = false
+  }
+  if (isClick) return
+
   // 1.获取所有的section元素的所有元素的offsetTop
   const els = Object.values(sectionEls.value)
   const value = els.map(el => el.offsetTop)
@@ -84,9 +100,7 @@ watch(scrollTop, (newVal) => {
       break
     }
   }
-  // tabControlRef.value.setCurrentIndex(index)
   tabControlRef.value?.setCurrentIndex(index)
-  // console.log(index)
 })
 
 
