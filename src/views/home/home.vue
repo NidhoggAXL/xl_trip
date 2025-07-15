@@ -55,6 +55,7 @@ export default {
 <template>
   <div class="home" ref="homeRef">
     <!-- titile -->
+     
     <home-nav-bar />
 
     <!-- home主要图片 -->

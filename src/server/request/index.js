@@ -13,12 +13,14 @@ class AXLRequest {
     })
     
     // 网络请求的拦截器
+    //1. 请求拦截器
     this.instance.interceptors.request.use((config) => {
       mainStore.isLoading = true
       return config
     }, (err) => {
       return err
     })
+    //2. 响应拦截器
     this.instance.interceptors.response.use((res) => {
       mainStore.isLoading = false
       return res
