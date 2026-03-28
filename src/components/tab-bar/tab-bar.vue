@@ -6,7 +6,7 @@ import { useRoute } from 'vue-router';
 
 // 监听路由改变时，对应的currentIndex
 const currentIndex = ref(0);
-const route = useRoute()
+const route = useRoute()  
 watch(route, (newRouter) => {
   const index = tabbarData.findIndex(item => item.path === newRouter.path)
   if (index === -1 ) return

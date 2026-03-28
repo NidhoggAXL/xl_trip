@@ -14,8 +14,6 @@ import DetailNotice from './cpns/detail_06-notice.vue';
 import DetailMap from './cpns/detail_07-map.vue'
 import DetailIntro from './cpns/detail_08-intro.vue'
 
-
-
 const router = useRouter()
 const route = useRoute()
 

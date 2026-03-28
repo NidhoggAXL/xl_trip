@@ -1,7 +1,6 @@
 <script setup>
 import useMainStore from '@/store/modules/main';
 
-
 const mainStore = useMainStore()
 </script>
 

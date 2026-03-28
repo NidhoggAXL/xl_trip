@@ -32,7 +32,7 @@ watch(isReachBottom, (newValue) => {
   }
 })
 
-// 所有框的显示和隐藏
+// 搜索框的显示和隐藏
 const isShowSearchBar = computed(() => {
   return scrollTop.value >= 450
 })
