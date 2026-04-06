@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+
 // 引入路由
 import router from './router'
 // 状态管理
